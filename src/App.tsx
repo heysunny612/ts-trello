@@ -1,35 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useRecoilState } from 'recoil';
+import { todoState } from './atoms';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import DroppableBoard from './components/DroppableBoard';
+import Header from './components/Header';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [todos, setTodos] = useRecoilState(todoState);
+  const handleDragEnd = (result: DropResult) => {
+    const { destination, source } = result;
+
+    if (!destination) return;
+    // same board movement
+    if (source.droppableId === destination?.droppableId) {
+      setTodos((prevBoards) => {
+        const boardCopy = [...prevBoards[source.droppableId]];
+        boardCopy.splice(source.index, 1);
+        boardCopy.splice(
+          destination.index,
+          0,
+          todos[source.droppableId][source.index]
+        );
+        return { ...prevBoards, [source.droppableId]: boardCopy };
+      });
+    } else {
+      // cross board movement
+      setTodos((prevBoards) => {
+        const sourceBoard = [...prevBoards[source.droppableId]];
+        const destinationBoard = [...prevBoards[destination.droppableId]];
+        sourceBoard.splice(source.index, 1);
+        destinationBoard.splice(
+          destination.index,
+          0,
+          todos[source.droppableId][source.index]
+        );
+        return {
+          ...prevBoards,
+          [source.droppableId]: sourceBoard,
+          [destination.droppableId]: destinationBoard,
+        };
+      });
+    }
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Header />
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <section className='todos__container'>
+          {Object.keys(todos).map((key) => (
+            <DroppableBoard key={key} boardId={key} todos={todos[key]} />
+          ))}
+        </section>
+      </DragDropContext>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
