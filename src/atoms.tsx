@@ -34,10 +34,10 @@ export const todoState = atom<ItodoState[]>({
       title: 'TO DO',
       todos: [
         {
-          date: 1686667627455,
+          date: 1686667624558,
           text: '리액트 Sunny Trello : CREATE BOARD 구현',
           example: true,
-          edit: 16867276471,
+          edit: 1686727648888,
         },
         {
           date: 1686667624557,
@@ -76,6 +76,7 @@ export const todoState = atom<ItodoState[]>({
           date: 1686667624564,
           text: '블로그 Lifecycle, useEffect 업로드',
           example: true,
+          edit: 1686727649999,
         },
         {
           date: 1686645624558,

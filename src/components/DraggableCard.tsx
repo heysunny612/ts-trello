@@ -6,7 +6,7 @@ import { BsFillTrash3Fill } from 'react-icons/bs';
 import { GrClose } from 'react-icons/gr';
 import { FaCheck } from 'react-icons/fa';
 import { useSetRecoilState } from 'recoil';
-import { todoState } from '../atoms';
+import {  todoState } from '../atoms';
 import { ITodo } from '../atoms';
 
 interface IDraggableCardProps {
@@ -77,61 +77,65 @@ export default function DraggableCard({
 
   return (
     <Draggable draggableId={date + ''} index={index}>
-      {(provided) => (
-        <li
-          className={`todos__list ${editMode ? 'edit' : null}`}
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
-          {!editMode ? (
-            <label
-              htmlFor={date + ''}
-              className={`todos__lable ${example ? 'example' : null}`}
-            >
-              {text}
-            </label>
-          ) : (
-            <form onSubmit={handleSubmit}>
-              <input
-                id={date + ''}
-                type='text'
-                value={editText}
-                className='todos__edit'
-                onChange={handleChange}
-                autoFocus
-              />
-            </form>
-          )}
-          <p className='todos__date'>
-            {edit && (
-              <span className='edit'>{formatAgo(edit, 'ko')} 수정됨</span>
-            )}
-            <span>{formatAgo(date, 'ko')}</span>
-          </p>
-          <div className='buttons'>
+      {(provided, snapshot) => {
+        return (
+          <li
+            className={`todos__list ${
+              editMode ? 'edit' : snapshot.isDragging ? 'isDragging' : null
+            }`}
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+          >
             {!editMode ? (
-              <>
-                <button onClick={handleToggleEdit}>
-                  <FiEdit />
-                </button>
-                <button onClick={handleDelete}>
-                  <BsFillTrash3Fill />
-                </button>
-              </>
+              <label
+                htmlFor={date + ''}
+                className={`todos__lable ${example ? 'example' : null}`}
+              >
+                {text}
+              </label>
             ) : (
-              <>
-                <button onClick={handleConfirm}>
-                  <FaCheck />
-                </button>
-                <button onClick={handleToggleEdit}>
-                  <GrClose />
-                </button>
-              </>
+              <form onSubmit={handleSubmit}>
+                <input
+                  id={date + ''}
+                  type='text'
+                  value={editText}
+                  className='todos__edit'
+                  onChange={handleChange}
+                  autoFocus
+                />
+              </form>
             )}
-          </div>
-        </li>
-      )}
+            <p className='todos__date'>
+              {edit && (
+                <span className='edit'>{formatAgo(edit, 'ko')} 수정됨</span>
+              )}
+              <span>{formatAgo(date, 'ko')}</span>
+            </p>
+            <div className='buttons'>
+              {!editMode ? (
+                <>
+                  <button onClick={handleToggleEdit}>
+                    <FiEdit />
+                  </button>
+                  <button onClick={handleDelete}>
+                    <BsFillTrash3Fill />
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button onClick={handleConfirm}>
+                    <FaCheck />
+                  </button>
+                  <button onClick={handleToggleEdit}>
+                    <GrClose />
+                  </button>
+                </>
+              )}
+            </div>
+          </li>
+        );
+      }}
     </Draggable>
   );
 }

@@ -29,26 +29,9 @@ export const GlobalStyles = createGlobalStyle`
         display: block;
     }
     body {
-        width: 100%;
-        min-height: 100vh;
-        background-image: linear-gradient(
-            to right top,
-            #d16ba5,
-            #c777b9,
-            #ba83ca,
-            #aa8fd8,
-            #9a9ae1,
-            #8aa7ec,
-            #79b3f4,
-            #69bff8,
-            #52cffe,
-            #41dfff,
-            #46eefa,
-            #5ffbf1
-        );
-        background-repeat: no-repeat;
-        background-size: cover;
-        overflow-y: hidden;
+    width: 100%;
+    min-height: 100vh;
+
     }
 
     ol, ul {

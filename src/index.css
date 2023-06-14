@@ -1,3 +1,27 @@
+#root {
+  background-image: linear-gradient(
+    to right top,
+    #d16ba5,
+    #c777b9,
+    #ba83ca,
+    #aa8fd8,
+    #9a9ae1,
+    #8aa7ec,
+    #79b3f4,
+    #69bff8,
+    #52cffe,
+    #41dfff,
+    #46eefa,
+    #5ffbf1
+  );
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: 1100px;
+}
+
 .todos__header {
   display: flex;
   padding: 1rem;
@@ -37,17 +61,19 @@
   cursor: pointer;
   border-radius: 0.5rem;
   border: 1px solid #fff;
-  transition: all 0.3ms ease-in;
+  transition: all 200ms ease-in;
 }
 .todos__header-btn button:hover {
   background-color: rgba(255, 255, 255, 1);
 }
 
 .todos__container {
-  margin-top: 5rem;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
+  padding: 5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  gap: 4rem;
+  min-width: 1100px;
 }
 
 .todos__article {
@@ -55,7 +81,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 25rem;
+  width: 100%;
   border-radius: 0.5rem;
   background-color: #ebecf0;
   box-shadow: -1px 1px 3px 0px rgba(0, 0, 0, 0.25);
@@ -63,6 +89,10 @@
   -moz-box-shadow: -1px 1px 3px 0px rgba(0, 0, 0, 0.25);
   min-height: 15rem;
 }
+.todos__article.isDragging {
+  background-color: #46eefa;
+}
+
 .todos__article:hover .todos__article-head .buttons {
   visibility: visible;
 }
@@ -103,18 +133,29 @@
   cursor: pointer;
   border-radius: 0 0 0.5rem 0.5rem;
   background-color: transparent;
-  transition: all 1ms ease-in;
+  transition: all 200ms ease-in;
 }
 .todos__add-btn:hover {
   background-color: #5ffbf1;
 }
 
+/*----------------투두 보드----------------*/
+
 .todos__board {
-  padding: 0rem 1rem 1rem;
+  padding: 1rem;
   background-color: transparent;
   flex: 1 1 auto;
   max-height: 20rem;
   overflow-y: auto;
+  transition: all 200ms ease-in;
+}
+
+.todos__board.over {
+  background-color: #f7d8e6;
+}
+
+.todos__board.from {
+  background-color: #e2f0f8;
 }
 
 .todos__board::-webkit-scrollbar-track {
@@ -153,6 +194,11 @@
   -webkit-user-select: none;
   user-select: none;
   border: 2px solid transparent;
+}
+
+.todos__list.isDragging {
+  background-color: #deeafe;
+  border: 2px solid #3f8cf2;
 }
 
 .todos__list.edit {
@@ -224,4 +270,44 @@
   outline: none;
   border-radius: 0 0 0.5rem 0.5rem;
   background-color: #46eefa;
+}
+
+/*----------------휴지통----------------*/
+.todos__bin {
+  position: fixed;
+  bottom: 0px;
+  right: 0;
+  width: 250px;
+  height: 100px;
+  background-color: red;
+  border-radius: 250px 250px 0 0;
+  overflow: hidden;
+  font-size: 3.5rem;
+  background-color: #46eefa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff0000;
+  box-shadow: -1px 1px 3px 0px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: -1px 1px 3px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: -1px 1px 3px 0px rgba(0, 0, 0, 0.25);
+  transition: all 200ms ease-in;
+}
+
+.todos__bin.over {
+  background-color: #fff;
+}
+
+@media (max-width: 1600px) {
+  .todos__container {
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 1280px) {
+  .todos__container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 2rem;
+  }
 }
