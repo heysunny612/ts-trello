@@ -21,6 +21,7 @@ export const GlobalStyles = createGlobalStyle`
         font: inherit;
         vertical-align: baseline;
         box-sizing: border-box;
+        font-family: 'Noto Sans KR', sans-serif;
     }
     /* HTML5 display-role reset for older browsers */
     article, aside, details, figcaption, figure, 

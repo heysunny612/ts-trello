@@ -1,37 +1,39 @@
-import React from 'react';
-import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { todoState } from '../atoms';
+import { useForm } from 'react-hook-form';
 
 interface IAddTodo {
-  boardId: string;
-  todos: { date: number; todo: string; example: boolean }[];
+  boardId: number;
+  boardTitle: string;
 }
 
-export default function AddTodo({ boardId, todos }: IAddTodo) {
+interface IForm {
+  todo: string;
+}
+export default function AddTodo({ boardId, boardTitle }: IAddTodo) {
   const setTodos = useSetRecoilState(todoState);
-  const [newTodo, setNewTodo] = useState('');
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (newTodo.trim().length === 0) return;
-    const addTodo = [
-      { date: Date.now(), todo: newTodo, example: false },
-      ...todos,
-    ];
-    setNewTodo('');
-    setTodos((prevTodos) => ({ ...prevTodos, [boardId]: addTodo }));
+  const { register, setValue, handleSubmit } = useForm<IForm>();
+  const onValid = ({ todo }: IForm) => {
+    if (todo.trim().length === 0) return;
+    const newTodo = { date: Date.now(), text: todo, example: false };
+
+    setTodos((prevTodos) => {
+      return prevTodos.map((todo) => {
+        if (todo.id === boardId) {
+          return { ...todo, todos: [newTodo, ...todo.todos] };
+        }
+        return todo;
+      });
+    });
+    setValue('todo', '');
   };
 
-  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
-    setNewTodo(event.currentTarget.value);
-  };
   return (
-    <form className='todos__form' onSubmit={handleSubmit}>
+    <form className='todos__form' onSubmit={handleSubmit(onValid)}>
       <input
         type='text'
-        placeholder={` Add a card in "${boardId}"`}
-        value={newTodo}
-        onChange={handleChange}
+        placeholder={` Add a card in "${boardTitle}"`}
+        {...register('todo', { required: true })}
       />
     </form>
   );

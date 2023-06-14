@@ -51,16 +51,17 @@
 }
 
 .todos__article {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-width: 20rem;
-  max-width: 25rem;
+  width: 25rem;
   border-radius: 0.5rem;
   background-color: #ebecf0;
   box-shadow: -1px 1px 3px 0px rgba(0, 0, 0, 0.25);
   -webkit-box-shadow: -1px 1px 3px 0px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: -1px 1px 3px 0px rgba(0, 0, 0, 0.25);
+  min-height: 15rem;
 }
 .todos__article:hover .todos__article-head .buttons {
   visibility: visible;
@@ -131,6 +132,14 @@
   background-color: #c1c7d0;
 }
 
+.todos__empty {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
 .todos__list {
   position: relative;
   margin-bottom: 0.5rem;
@@ -143,10 +152,48 @@
   -khtml-user-select: none;
   -webkit-user-select: none;
   user-select: none;
+  border: 2px solid transparent;
 }
 
-.todos__list.example {
+.todos__list.edit {
+  border: 2px solid red;
+}
+
+.todos__list .example {
   color: #c1c7d0;
+}
+.todos__list .todos__edit {
+  position: relative;
+  border: 0 none;
+  font-size: 1rem;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  outline: 0 none;
+  letter-spacing: 0.2px;
+}
+
+.todos__list:hover .buttons {
+  visibility: visible;
+}
+.todos__list .buttons {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  visibility: hidden;
+}
+
+.todos__list .buttons button {
+  outline: 0 none;
+  background-color: transparent;
+  border: 0 none;
+  font-size: 1rem;
+  color: #333;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+}
+.todos__list .buttons button:hover {
+  transform: scale(1.2);
 }
 
 .todos__date {
@@ -161,6 +208,11 @@
   padding: 0.2rem 0.5rem;
   background-color: #ebecf0;
   border-radius: 0.5rem;
+}
+
+.todos__date span.edit {
+  margin-right: 0.5rem;
+  background-color: #69bff8;
 }
 
 .todos__form input {

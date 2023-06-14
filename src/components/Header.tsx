@@ -1,22 +1,26 @@
 import { AiFillStar, AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { todoState } from '../atoms';
 export default function Header() {
-  const [todos, setTodos] = useRecoilState(todoState);
+  const setTodos = useSetRecoilState(todoState);
+  //새로운 보드 만들기
   const handleCreateBoard = () => {
-    const newBoard = prompt('New Board의 이름을 입력해주세요');
-    if (!newBoard) return;
+    const newBoardTitle = prompt('New Board의 이름을 입력해주세요');
+    if (!newBoardTitle) return;
+    const newBoard = { id: Date.now(), title: newBoardTitle, todos: [] };
     setTodos((prevTodos) => {
-      return { ...prevTodos, [newBoard]: [] };
+      return [...prevTodos, newBoard];
     });
   };
+
+  //예제 투두 전부 지우기
   const handleClearExample = () => {
-    Object.keys(todos).map((key) => {
-      setTodos((prevTodos) => ({
-        ...prevTodos,
-        [key]: prevTodos[key].filter((v) => v.example !== true),
-      }));
-    });
+    setTodos((prevTodos) =>
+      prevTodos.map((todoObj) => ({
+        ...todoObj,
+        todos: todoObj.todos.filter((value) => value.example !== true),
+      }))
+    );
   };
 
   return (
