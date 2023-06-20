@@ -188,7 +188,7 @@ export const todoState = atom<ItodoState[]>({
 | 구현 사항 | -레코일을 이용한 투두 데이터 관리  <br/> -CRUD 구현 <br/> -Beautiful-dnd를 이용한 드래그 이벤트 구현|
 | 라이브러리 | react-beautiful-dnd, recoil, react-hook-form, styled-components, timeago.js|
 | css 및 반응형  | Styled-components사용 , 반응형 구현 , 타입스크립트 적용 |
-| 배포 주소  | Netlify [[https://sunny-bit.netlify.app/](https://sunny-bit.netlify.app/)](https://sunny-trello.netlify.app/) |
+| 배포 주소  | Netlify https://sunny-trello.netlify.app/ |
 | 소스 코드  | Github https://github.com/heysunny612/ts-trello|
 
 
