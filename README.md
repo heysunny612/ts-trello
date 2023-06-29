@@ -1,8 +1,8 @@
 # 리액트 프로젝트 TO-DO TRELLO 만들기 
 
-![1](https://github.com/heysunny612/ts-trello/assets/127499117/9e6da0b2-4cff-4864-b02f-6e0bdefe20fc)
-
-
+<p align="center">
+    <img src="https://github.com/heysunny612/ts-trello/assets/127499117/9e6da0b2-4cff-4864-b02f-6e0bdefe20fc" alt="1">
+</p>
 
 <br/>
 
@@ -102,9 +102,9 @@ const handleDragEnd = (result: DropResult) => {
 <br/>
 <br/>
 
-![2](https://github.com/heysunny612/ts-trello/assets/127499117/acb71b62-9676-4434-bcf0-99b64b838e74)
-
-
+<p align="center">
+    <img src="https://github.com/heysunny612/ts-trello/assets/127499117/acb71b62-9676-4434-bcf0-99b64b838e74" alt="2">
+</p>
 
 <br/>
 
